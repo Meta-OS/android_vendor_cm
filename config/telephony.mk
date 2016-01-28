@@ -1,10 +1,10 @@
 # World APN list
 PRODUCT_COPY_FILES += \
-    vendor/metaos/prebuilt/common/etc/apns-conf.xml:system/etc/apns-conf.xml
+    vendor/meta/prebuilt/common/etc/apns-conf.xml:system/etc/apns-conf.xml
 
 # Selective SPN list for operator number who has the problem.
 PRODUCT_COPY_FILES += \
-    vendor/metaos/prebuilt/common/etc/selective-spn-conf.xml:system/etc/selective-spn-conf.xml
+    vendor/meta/prebuilt/common/etc/selective-spn-conf.xml:system/etc/selective-spn-conf.xml
 
 # Telephony packages
 PRODUCT_PACKAGES += \

@@ -1,12 +1,12 @@
-# Inherit common metaos stuff
-$(call inherit-product, vendor/metaos/config/common_full.mk)
+# Inherit common meta stuff
+$(call inherit-product, vendor/meta/config/common_full.mk)
 
-# Required metaos packages
+# Required meta packages
 PRODUCT_PACKAGES += \
     LatinIME
 
-# Include metaos LatinIME dictionaries
-PRODUCT_PACKAGE_OVERLAYS += vendor/metaos/overlay/dictionaries
+# Include meta LatinIME dictionaries
+PRODUCT_PACKAGE_OVERLAYS += vendor/meta/overlay/dictionaries
 
 # Default notification/alarm sounds
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -15,7 +15,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 ifeq ($(TARGET_SCREEN_WIDTH) $(TARGET_SCREEN_HEIGHT),$(space))
     PRODUCT_COPY_FILES += \
-        vendor/metaos/prebuilt/common/bootanimation/480.zip:system/media/bootanimation.zip
+        vendor/meta/prebuilt/common/bootanimation/480.zip:system/media/bootanimation.zip
 endif
 
-$(call inherit-product, vendor/metaos/config/telephony.mk)
+$(call inherit-product, vendor/meta/config/telephony.mk)
