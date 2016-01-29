@@ -1,8 +1,8 @@
-# Inherit common metaos stuff
-$(call inherit-product, vendor/metaos/config/common.mk)
+# Inherit common meta stuff
+$(call inherit-product, vendor/meta/config/common.mk)
 
-# Include metaos audio files
-include vendor/metaos/config/metaos_audio.mk
+# Include meta audio files
+include vendor/meta/config/meta_audio.mk
 
 # Default notification/alarm sounds
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -11,5 +11,5 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 ifeq ($(TARGET_SCREEN_WIDTH) $(TARGET_SCREEN_HEIGHT),$(space))
     PRODUCT_COPY_FILES += \
-        vendor/metaos/prebuilt/common/bootanimation/800.zip:system/media/bootanimation.zip
+        vendor/meta/prebuilt/common/bootanimation/800.zip:system/media/bootanimation.zip
 endif

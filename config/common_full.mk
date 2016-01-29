@@ -1,10 +1,10 @@
-# Inherit common metaos stuff
-$(call inherit-product, vendor/metaos/config/common.mk)
+# Inherit common meta stuff
+$(call inherit-product, vendor/meta/config/common.mk)
 
-# Include metaos audio files
-include vendor/metaos/config/metaos_audio.mk
+# Include meta audio files
+include vendor/meta/config/meta_audio.mk
 
-# Optional metaos packages
+# Optional meta packages
 PRODUCT_PACKAGES += \
     Galaxy4 \
     HoloSpiralWallpaper \
@@ -18,7 +18,7 @@ PRODUCT_PACKAGES += \
     PhotoPhase \
     Screencast
 
-# Extra tools in metaos
+# Extra tools in meta
 PRODUCT_PACKAGES += \
     7z \
     lib7z \

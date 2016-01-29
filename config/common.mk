@@ -10,7 +10,7 @@ TARGET_BOOTANIMATION_SIZE := $(shell \
   fi )
 
 # get a sorted list of the sizes
-bootanimation_sizes := $(subst .zip,, $(shell ls vendor/metaos/prebuilt/common/bootanimation))
+bootanimation_sizes := $(subst .zip,, $(shell ls vendor/meta/prebuilt/common/bootanimation))
 bootanimation_sizes := $(shell echo -e $(subst $(space),'\n',$(bootanimation_sizes)) | sort -rn)
 
 # find the appropriate size and set
@@ -27,13 +27,13 @@ endef
 $(foreach size,$(bootanimation_sizes), $(call check_and_set_bootanimation,$(size)))
 
 ifeq ($(TARGET_BOOTANIMATION_HALF_RES),true)
-PRODUCT_BOOTANIMATION := vendor/metaos/prebuilt/common/bootanimation/halfres/$(TARGET_BOOTANIMATION_NAME).zip
+PRODUCT_BOOTANIMATION := vendor/meta/prebuilt/common/bootanimation/halfres/$(TARGET_BOOTANIMATION_NAME).zip
 else
-PRODUCT_BOOTANIMATION := vendor/metaos/prebuilt/common/bootanimation/$(TARGET_BOOTANIMATION_NAME).zip
+PRODUCT_BOOTANIMATION := vendor/meta/prebuilt/common/bootanimation/$(TARGET_BOOTANIMATION_NAME).zip
 endif
 endif
 
-ifdef metaos_NIGHTLY
+ifdef META_NIGHTLY
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.rommanager.developerid=cyanogenmodnightly
 else
@@ -75,39 +75,39 @@ endif
 
 # Copy over the changelog to the device
 PRODUCT_COPY_FILES += \
-    vendor/metaos/CHANGELOG.mkdn:system/etc/CHANGELOG-metaos.txt
+    vendor/meta/CHANGELOG.mkdn:system/etc/CHANGELOG-META.txt
 
 # Backup Tool
 ifneq ($(WITH_GMS),true)
 PRODUCT_COPY_FILES += \
-    vendor/metaos/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
-    vendor/metaos/prebuilt/common/bin/backuptool.functions:install/bin/backuptool.functions \
-    vendor/metaos/prebuilt/common/bin/50-metaos.sh:system/addon.d/50-metaos.sh \
-    vendor/metaos/prebuilt/common/bin/blacklist:system/addon.d/blacklist
+    vendor/meta/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
+    vendor/meta/prebuilt/common/bin/backuptool.functions:install/bin/backuptool.functions \
+    vendor/meta/prebuilt/common/bin/50-meta.sh:system/addon.d/50-meta.sh \
+    vendor/meta/prebuilt/common/bin/blacklist:system/addon.d/blacklist
 endif
 
 # Signature compatibility validation
 PRODUCT_COPY_FILES += \
-    vendor/metaos/prebuilt/common/bin/otasigcheck.sh:install/bin/otasigcheck.sh
+    vendor/meta/prebuilt/common/bin/otasigcheck.sh:install/bin/otasigcheck.sh
 
 # init.d support
 PRODUCT_COPY_FILES += \
-    vendor/metaos/prebuilt/common/etc/init.d/00banner:system/etc/init.d/00banner \
-    vendor/metaos/prebuilt/common/bin/sysinit:system/bin/sysinit
+    vendor/meta/prebuilt/common/etc/init.d/00banner:system/etc/init.d/00banner \
+    vendor/meta/prebuilt/common/bin/sysinit:system/bin/sysinit
 
 ifneq ($(TARGET_BUILD_VARIANT),user)
 # userinit support
 PRODUCT_COPY_FILES += \
-    vendor/metaos/prebuilt/common/etc/init.d/90userinit:system/etc/init.d/90userinit
+    vendor/meta/prebuilt/common/etc/init.d/90userinit:system/etc/init.d/90userinit
 endif
 
-# metaos-specific init file
+# META-specific init file
 PRODUCT_COPY_FILES += \
-    vendor/metaos/prebuilt/common/etc/init.local.rc:root/init.metaos.rc
+    vendor/meta/prebuilt/common/etc/init.local.rc:root/init.meta.rc
 
 # Copy over added mimetype supported in libcore.net.MimeUtils
 PRODUCT_COPY_FILES += \
-    vendor/metaos/prebuilt/common/lib/content-types.properties:system/lib/content-types.properties
+    vendor/meta/prebuilt/common/lib/content-types.properties:system/lib/content-types.properties
 
 # Enable SIP+VoIP on all targets
 PRODUCT_COPY_FILES += \
@@ -117,20 +117,20 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     frameworks/base/data/keyboards/Vendor_045e_Product_028e.kl:system/usr/keylayout/Vendor_045e_Product_0719.kl
 
-# This is metaos!
+# This is META!
 PRODUCT_COPY_FILES += \
-    vendor/metaos/config/permissions/com.cyanogenmod.android.xml:system/etc/permissions/com.cyanogenmod.android.xml
+    vendor/meta/config/permissions/com.cyanogenmod.android.xml:system/etc/permissions/com.cyanogenmod.android.xml
 
 # Theme engine
-include vendor/metaos/config/themes_common.mk
+include vendor/meta/config/themes_common.mk
 
-# Required metaos packages
+# Required META packages
 PRODUCT_PACKAGES += \
     Development \
     BluetoothExt \
     Profiles
 
-# Optional metaos packages
+# Optional META packages
 PRODUCT_PACKAGES += \
     libemoji \
     Terminal
@@ -139,32 +139,32 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     librsjni
 
-# Custom metaos packages
+# Custom META packages
 PRODUCT_PACKAGES += \
     Launcher3 \
     Trebuchet \
     AudioFX \
-    metaosWallpapers \
-    metaosFileManager \
+    METAWallpapers \
+    METAFileManager \
     Eleven \
     LockClock \
-    metaosUpdater \
+    METAUpdater \
     CyanogenSetupWizard \
-    metaosSettingsProvider \
+    METASettingsProvider \
     ExactCalculator
 
-# metaos Platform Library
+# META Platform Library
 PRODUCT_PACKAGES += \
     org.cyanogenmod.platform-res \
     org.cyanogenmod.platform \
     org.cyanogenmod.platform.xml
 
-# metaos Hardware Abstraction Framework
+# META Hardware Abstraction Framework
 PRODUCT_PACKAGES += \
     org.cyanogenmod.hardware \
     org.cyanogenmod.hardware.xml
 
-# Extra tools in metaos
+# Extra tools in META
 PRODUCT_PACKAGES += \
     libsepol \
     mke2fs \
@@ -217,7 +217,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # These packages are excluded from user builds
 ifneq ($(TARGET_BUILD_VARIANT),user)
 PRODUCT_PACKAGES += \
-    prometaosem \
+    prometaem \
     procrank \
     su
 endif
@@ -225,99 +225,99 @@ endif
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.root_access=0
 
-PRODUCT_PACKAGE_OVERLAYS += vendor/metaos/overlay/common
+PRODUCT_PACKAGE_OVERLAYS += vendor/meta/overlay/common
 
 PRODUCT_VERSION_MAJOR = 13
 PRODUCT_VERSION_MINOR = 0
 PRODUCT_VERSION_MAINTENANCE = 0-RC0
 
-# Set metaos_BUILDTYPE from the env RELEASE_TYPE, for jenkins compat
+# Set META_BUILDTYPE from the env RELEASE_TYPE, for jenkins compat
 
-ifndef metaos_BUILDTYPE
+ifndef META_BUILDTYPE
     ifdef RELEASE_TYPE
-        # Starting with "metaos_" is optional
-        RELEASE_TYPE := $(shell echo $(RELEASE_TYPE) | sed -e 's|^metaos_||g')
-        metaos_BUILDTYPE := $(RELEASE_TYPE)
+        # Starting with "META_" is optional
+        RELEASE_TYPE := $(shell echo $(RELEASE_TYPE) | sed -e 's|^META_||g')
+        META_BUILDTYPE := $(RELEASE_TYPE)
     endif
 endif
 
 # Filter out random types, so it'll reset to UNOFFICIAL
-ifeq ($(filter RELEASE NIGHTLY SNAPSHOT EXPERIMENTAL,$(metaos_BUILDTYPE)),)
-    metaos_BUILDTYPE :=
+ifeq ($(filter RELEASE NIGHTLY SNAPSHOT EXPERIMENTAL,$(META_BUILDTYPE)),)
+    META_BUILDTYPE :=
 endif
 
-ifdef metaos_BUILDTYPE
-    ifneq ($(metaos_BUILDTYPE), SNAPSHOT)
-        ifdef metaos_EXTRAVERSION
+ifdef META_BUILDTYPE
+    ifneq ($(META_BUILDTYPE), SNAPSHOT)
+        ifdef META_EXTRAVERSION
             # Force build type to EXPERIMENTAL
-            metaos_BUILDTYPE := EXPERIMENTAL
-            # Remove leading dash from metaos_EXTRAVERSION
-            metaos_EXTRAVERSION := $(shell echo $(metaos_EXTRAVERSION) | sed 's/-//')
-            # Add leading dash to metaos_EXTRAVERSION
-            metaos_EXTRAVERSION := -$(metaos_EXTRAVERSION)
+            META_BUILDTYPE := EXPERIMENTAL
+            # Remove leading dash from META_EXTRAVERSION
+            META_EXTRAVERSION := $(shell echo $(META_EXTRAVERSION) | sed 's/-//')
+            # Add leading dash to META_EXTRAVERSION
+            META_EXTRAVERSION := -$(META_EXTRAVERSION)
         endif
     else
-        ifndef metaos_EXTRAVERSION
+        ifndef META_EXTRAVERSION
             # Force build type to EXPERIMENTAL, SNAPSHOT mandates a tag
-            metaos_BUILDTYPE := EXPERIMENTAL
+            META_BUILDTYPE := EXPERIMENTAL
         else
-            # Remove leading dash from metaos_EXTRAVERSION
-            metaos_EXTRAVERSION := $(shell echo $(metaos_EXTRAVERSION) | sed 's/-//')
-            # Add leading dash to metaos_EXTRAVERSION
-            metaos_EXTRAVERSION := -$(metaos_EXTRAVERSION)
+            # Remove leading dash from META_EXTRAVERSION
+            META_EXTRAVERSION := $(shell echo $(META_EXTRAVERSION) | sed 's/-//')
+            # Add leading dash to META_EXTRAVERSION
+            META_EXTRAVERSION := -$(META_EXTRAVERSION)
         endif
     endif
 else
-    # If metaos_BUILDTYPE is not defined, set to UNOFFICIAL
-    metaos_BUILDTYPE := UNOFFICIAL
-    metaos_EXTRAVERSION :=
+    # If META_BUILDTYPE is not defined, set to UNOFFICIAL
+    META_BUILDTYPE := UNOFFICIAL
+    META_EXTRAVERSION :=
 endif
 
-ifeq ($(metaos_BUILDTYPE), UNOFFICIAL)
+ifeq ($(META_BUILDTYPE), UNOFFICIAL)
     ifneq ($(TARGET_UNOFFICIAL_BUILD_ID),)
-        metaos_EXTRAVERSION := -$(TARGET_UNOFFICIAL_BUILD_ID)
+        META_EXTRAVERSION := -$(TARGET_UNOFFICIAL_BUILD_ID)
     endif
 endif
 
-ifeq ($(metaos_BUILDTYPE), RELEASE)
+ifeq ($(META_BUILDTYPE), RELEASE)
     ifndef TARGET_VENDOR_RELEASE_BUILD_ID
-        metaos_VERSION := $(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE)$(PRODUCT_VERSION_DEVICE_SPECIFIC)-$(metaos_BUILD)
+        META_VERSION := $(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE)$(PRODUCT_VERSION_DEVICE_SPECIFIC)-$(META_BUILD)
     else
         ifeq ($(TARGET_BUILD_VARIANT),user)
-            metaos_VERSION := $(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR)-$(TARGET_VENDOR_RELEASE_BUILD_ID)-$(metaos_BUILD)
+            META_VERSION := $(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR)-$(TARGET_VENDOR_RELEASE_BUILD_ID)-$(META_BUILD)
         else
-            metaos_VERSION := $(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE)$(PRODUCT_VERSION_DEVICE_SPECIFIC)-$(metaos_BUILD)
+            META_VERSION := $(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE)$(PRODUCT_VERSION_DEVICE_SPECIFIC)-$(META_BUILD)
         endif
     endif
 else
-    metaos_VERSION := $(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR)-$(shell date -u +%Y%m%d)-$(metaos_BUILDTYPE)$(metaos_EXTRAVERSION)-$(metaos_BUILD)
+    META_VERSION := $(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR)-$(shell date -u +%Y%m%d)-$(META_BUILDTYPE)$(META_EXTRAVERSION)-$(META_BUILD)
 endif
 
 PRODUCT_PROPERTY_OVERRIDES += \
-  ro.metaos.version=$(metaos_VERSION) \
-  ro.metaos.releasetype=$(metaos_BUILDTYPE) \
-  ro.modversion=$(metaos_VERSION) \
-  ro.metaoslegal.url=https://cyngn.com/legal/privacy-policy
+  ro.meta.version=$(META_VERSION) \
+  ro.meta.releasetype=$(META_BUILDTYPE) \
+  ro.modversion=$(META_VERSION) \
+  ro.metalegal.url=https://cyngn.com/legal/privacy-policy
 
--include vendor/metaos-priv/keys/keys.mk
+-include vendor/meta-priv/keys/keys.mk
 
-metaos_DISPLAY_VERSION := $(metaos_VERSION)
+META_DISPLAY_VERSION := $(META_VERSION)
 
 ifneq ($(PRODUCT_DEFAULT_DEV_CERTIFICATE),)
 ifneq ($(PRODUCT_DEFAULT_DEV_CERTIFICATE),build/target/product/security/testkey)
-  ifneq ($(metaos_BUILDTYPE), UNOFFICIAL)
+  ifneq ($(META_BUILDTYPE), UNOFFICIAL)
     ifndef TARGET_VENDOR_RELEASE_BUILD_ID
-      ifneq ($(metaos_EXTRAVERSION),)
-        # Remove leading dash from metaos_EXTRAVERSION
-        metaos_EXTRAVERSION := $(shell echo $(metaos_EXTRAVERSION) | sed 's/-//')
-        TARGET_VENDOR_RELEASE_BUILD_ID := $(metaos_EXTRAVERSION)
+      ifneq ($(META_EXTRAVERSION),)
+        # Remove leading dash from META_EXTRAVERSION
+        META_EXTRAVERSION := $(shell echo $(META_EXTRAVERSION) | sed 's/-//')
+        TARGET_VENDOR_RELEASE_BUILD_ID := $(META_EXTRAVERSION)
       else
         TARGET_VENDOR_RELEASE_BUILD_ID := $(shell date -u +%Y%m%d)
       endif
     else
       TARGET_VENDOR_RELEASE_BUILD_ID := $(TARGET_VENDOR_RELEASE_BUILD_ID)
     endif
-    metaos_DISPLAY_VERSION=$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR)-$(TARGET_VENDOR_RELEASE_BUILD_ID)
+    META_DISPLAY_VERSION=$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR)-$(TARGET_VENDOR_RELEASE_BUILD_ID)
   endif
 endif
 endif
@@ -325,36 +325,37 @@ endif
 # by default, do not update the recovery with system updates
 PRODUCT_PROPERTY_OVERRIDES += persist.sys.recovery_update=false
 
-ifndef metaos_PLATFORM_SDK_VERSION
+ifndef META_PLATFORM_SDK_VERSION
   # This is the canonical definition of the SDK version, which defines
   # the set of APIs and functionality available in the platform.  It
   # is a single integer that increases monotonically as updates to
   # the SDK are released.  It should only be incremented when the APIs for
   # the new release are frozen (so that developers don't write apps against
   # intermediate builds).
-  metaos_PLATFORM_SDK_VERSION := 4
+  META_PLATFORM_SDK_VERSION := 4
 endif
 
-ifndef metaos_PLATFORM_REV
+ifndef META_PLATFORM_REV
   # For internal SDK revisions that are hotfixed/patched
-  # Reset after each metaos_PLATFORM_SDK_VERSION release
+  # Reset after each META_PLATFORM_SDK_VERSION release
   # If you are doing a release and this is NOT 0, you are almost certainly doing it wrong
-  metaos_PLATFORM_REV := 0
+  META_PLATFORM_REV := 0
 endif
 
 PRODUCT_PROPERTY_OVERRIDES += \
-  ro.metaos.display.version=$(metaos_DISPLAY_VERSION)
+  ro.meta.display.version=$(META_DISPLAY_VERSION)
 
 # CyanogenMod Platform SDK Version
 PRODUCT_PROPERTY_OVERRIDES += \
-  ro.metaos.build.version.plat.sdk=$(metaos_PLATFORM_SDK_VERSION)
+  ro.meta.build.version.plat.sdk=$(META_PLATFORM_SDK_VERSION)
 
 # CyanogenMod Platform Internal
 PRODUCT_PROPERTY_OVERRIDES += \
-  ro.metaos.build.version.plat.rev=$(metaos_PLATFORM_REV)
+  ro.meta.build.version.plat.rev=$(META_PLATFORM_REV)
 
 -include $(WORKSPACE)/build_env/image-auto-bits.mk
 
 -include vendor/cyngn/product.mk
 
 $(call prepend-product-if-exists, vendor/extra/product.mk)
+
