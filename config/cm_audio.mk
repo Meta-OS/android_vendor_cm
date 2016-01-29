@@ -2,10 +2,10 @@
 # CyanogenMod Audio Files
 #
 
-ALARM_PATH := vendor/meta/prebuilt/common/media/audio/alarms
-NOTIFICATION_PATH := vendor/meta/prebuilt/common/media/audio/notifications
-RINGTONE_PATH := vendor/meta/prebuilt/common/media/audio/ringtones
-UI_PATH := vendor/meta/prebuilt/common/media/audio/ui
+ALARM_PATH := vendor/metaos/prebuilt/common/media/audio/alarms
+NOTIFICATION_PATH := vendor/metaos/prebuilt/common/media/audio/notifications
+RINGTONE_PATH := vendor/metaos/prebuilt/common/media/audio/ringtones
+UI_PATH := vendor/metaos/prebuilt/common/media/audio/ui
 
 # Alarms
 PRODUCT_COPY_FILES += \
